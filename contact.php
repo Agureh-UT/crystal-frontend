@@ -1,36 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Us - Crystal Crown Mobile Detailing</title>
-    <meta name="description" content="Get in touch with Crystal Crown Mobile Detailing. We're here to answer your questions.">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-wrapper">
-                <a href="index.html" class="logo-link">
-                    <img src="logo.webp" alt="Crystal Crown Mobile Detailing" class="logo">
-                </a>
-                <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="index.html#services" class="nav-link">Services</a></li>
-                    <li><a href="bookings.html" class="nav-link">Book Now</a></li>
-                    <li><a href="contact.html" class="nav-link active">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<?php
+$pageTitle = 'Contact Us - Crystal Crown Mobile Detailing';
+$pageDescription = 'Get in touch with Crystal Crown Mobile Detailing. We\'re here to answer your questions.';
+$activePage = 'contact';
+$navType = 'public';
+include 'header.php';
+?>
 
     <section class="page-header">
         <div class="container">
@@ -95,7 +69,7 @@
                     <div class="form-card">
                         <h2 class="form-title">Send Us a Message</h2>
                         <p class="form-description">Have a question or special request? Fill out the form below and we'll get back to you shortly.</p>
-                        
+
                         <div class="contact-form" id="contactForm">
                             <div class="form-grid">
                                 <div class="form-group">
@@ -107,7 +81,7 @@
                                     <input type="tel" id="contactPhone" name="contactPhone" placeholder="(555) 123-4567" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="contactEmail">Email Address</label>
                                 <input type="email" id="contactEmail" name="contactEmail" placeholder="your@email.com" required>
@@ -238,54 +212,11 @@
                 <h2 class="cta-title">Ready to Get Started?</h2>
                 <p class="cta-subtitle">Book your appointment online or give us a call</p>
                 <div class="cta-buttons">
-                    <a href="bookings.html" class="btn btn-primary btn-large">Book Online</a>
+                    <a href="bookings.php" class="btn btn-primary btn-large">Book Online</a>
                     <a href="tel:+15551234567" class="btn btn-secondary btn-large">Call Us</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <img src="logo.webp" alt="Crystal Crown" class="footer-logo">
-                    <p class="footer-text">Premium mobile detailing services bringing luxury to your doorstep.</p>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#services">Services</a></li>
-                        <li><a href="bookings.html">Book Now</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Services</h4>
-                    <ul class="footer-links">
-                        <li><a href="bookings.html">Exterior Detailing</a></li>
-                        <li><a href="bookings.html">Interior Detailing</a></li>
-                        <li><a href="bookings.html">Ceramic Coating</a></li>
-                        <li><a href="bookings.html">Full Detail</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Contact</h4>
-                    <ul class="footer-links">
-                        <li>info@crystalcrown.com</li>
-                        <li>+1 (555) 123-4567</li>
-                        <li>Available 7 Days a Week</li>
-                        <li>8 AM - 8 PM</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Crystal Crown Mobile Detailing. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+<?php include 'footer.php'; ?>

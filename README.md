@@ -32,6 +32,7 @@ Crystal Crown Mobile Detailing is a premium, fully responsive website for a mobi
 - Comprehensive customer dashboard
 
 **Technology Stack:**
+- PHP (Templated pages with shared header/footer)
 - HTML5 (Semantic markup)
 - CSS3 (External stylesheet with CSS variables)
 - Vanilla JavaScript (No dependencies)
@@ -69,13 +70,16 @@ Crystal Crown Mobile Detailing is a premium, fully responsive website for a mobi
 ```
 crystal-crown-detailing/
 │
-├── index.html                 # Homepage with hero section
-├── bookings.html              # Multi-step booking form
-├── contact.html               # Contact form and FAQ
-├── login.html                 # User login page
-├── register.html              # User registration page
-├── customerdashboard.html     # Customer dashboard
-├── profile.html               # User profile management
+├── header.php                 # Shared partial: DOCTYPE, <head>, navbar
+├── footer.php                 # Shared partial: footer, <script>, closing tags
+│
+├── index.php                  # Homepage with hero section
+├── bookings.php               # Multi-step booking form
+├── contact.php                # Contact form and FAQ
+├── login.php                  # User login page
+├── register.php               # User registration page
+├── customerdashboard.php      # Customer dashboard
+├── profile.php                # User profile management
 │
 ├── styles.css                 # Main stylesheet (all pages)
 ├── script.js                  # JavaScript functionality
@@ -94,8 +98,9 @@ crystal-crown-detailing/
 
 1. **Download all files** to a single folder
 2. **Add your video** - Replace `hero-video.mp4` with your own video file
-3. **Open index.html** in a web browser
-4. **Done!** The website is ready to use
+3. **Serve with PHP** - Use Apache with mod_php, or run `php -S localhost:8000`
+4. **Open `index.php`** in a web browser
+5. **Done!** The website is ready to use
 
 ### Video Setup
 The homepage expects a video file named `hero-video.mp4` in the root directory.
@@ -111,7 +116,7 @@ The homepage expects a video file named `hero-video.mp4` in the root directory.
 
 ## 📄 Page Documentation
 
-### 1. index.html - Homepage
+### 1. index.php - Homepage
 
 **Sections:**
 - Navigation - Fixed header with logo and menu
@@ -122,7 +127,7 @@ The homepage expects a video file named `hero-video.mp4` in the root directory.
 - CTA Section - Call-to-action for bookings
 - Footer - Links and contact information
 
-### 2. bookings.html - Booking Form
+### 2. bookings.php - Booking Form
 
 **4-Step Process:**
 1. Service Selection - Choose from 6 services
@@ -130,13 +135,13 @@ The homepage expects a video file named `hero-video.mp4` in the root directory.
 3. Schedule & Location - Date, time, address
 4. Contact Information - Name, email, phone
 
-### 3. contact.html - Contact Page
+### 3. contact.php - Contact Page
 
 - Contact information cards
 - Contact form with inquiry types
 - FAQ accordion (6 questions)
 
-### 4. login.html - Authentication
+### 4. login.php - Authentication
 
 - Email and password login
 - Remember me checkbox
@@ -144,7 +149,7 @@ The homepage expects a video file named `hero-video.mp4` in the root directory.
 - Social login (Google, Facebook)
 - Link to registration
 
-### 5. register.html - Registration
+### 5. register.php - Registration
 
 - Multi-field registration form
 - Real-time password strength indicator
@@ -152,7 +157,7 @@ The homepage expects a video file named `hero-video.mp4` in the root directory.
 - Terms acceptance
 - Social signup options
 
-### 6. customerdashboard.html - Dashboard
+### 6. customerdashboard.php - Dashboard
 
 **Dashboard Components:**
 - 4 Statistics cards (bookings, services, status, points)
@@ -162,7 +167,7 @@ The homepage expects a video file named `hero-video.mp4` in the root directory.
 - Quick actions menu
 - Service history
 
-### 7. profile.html - Profile Management
+### 7. profile.php - Profile Management
 
 **5 Tabs:**
 1. Personal Information - Edit profile details
@@ -194,12 +199,12 @@ All colors are managed via CSS variables in `styles.css`:
 
 **Change Fonts:**
 1. Choose fonts from [Google Fonts](https://fonts.google.com)
-2. Update import in HTML `<head>`
+2. Update import in `header.php`
 3. Update CSS variables in `styles.css`
 
 ### Business Information
 
-**Update Throughout All Files:**
+**Update in `header.php` and `footer.php`:**
 - Email: `info@crystalcrown.com`
 - Phone: `+1 (555) 123-4567`
 - Hours: `8 AM - 8 PM`
@@ -292,26 +297,20 @@ Replace `logo.webp` or update all references:
 
 ## 🚀 Deployment
 
-### Option 1: GitHub Pages (Free)
+### Option 1: PHP Hosting (Recommended)
 
-```bash
-1. Create GitHub repository
-2. Upload all files
-3. Enable Pages in Settings
-4. Access at: username.github.io/repo-name
-```
-
-### Option 2: Netlify (Free)
-
-1. Drag and drop folder to [netlify.com](https://netlify.com)
-2. Instant deployment with HTTPS
-3. Custom domain available
-
-### Option 3: Traditional Hosting
-
-1. Purchase hosting (Bluehost, SiteGround, etc.)
+1. Purchase hosting with PHP support (Bluehost, SiteGround, etc.)
 2. Upload via FTP to `public_html`
 3. Configure domain
+
+### Option 2: Local Development
+
+```bash
+php -S localhost:8000
+# Access at: http://localhost:8000
+```
+
+**Note:** Since the site uses PHP, static hosting (GitHub Pages, Netlify) is not supported. A PHP-capable server is required.
 
 ### Pre-Deployment Checklist
 
@@ -358,7 +357,7 @@ Replace `logo.webp` or update all references:
 ### Styling Issues
 
 **Solutions:**
-- Verify CSS link in HTML
+- Verify CSS link in `header.php`
 - Clear browser cache (Ctrl+Shift+R)
 - Check for CSS syntax errors
 - Use DevTools inspector
@@ -370,9 +369,9 @@ Replace `logo.webp` or update all references:
 ### Recommended Additions
 
 1. **Backend Integration**
-   - PHP/MySQL or Node.js
-   - User authentication
    - Database for bookings
+   - User authentication with sessions
+   - Real API endpoints
 
 2. **Payment Processing**
    - Stripe integration

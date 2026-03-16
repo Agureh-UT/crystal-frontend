@@ -265,7 +265,7 @@ if (submitButton) {
             alert('Thank you for your booking! We will contact you shortly to confirm your appointment.');
             
             // Reset form
-            window.location.href = 'index.html';
+            window.location.href = 'index.php';
         }
     });
 }
@@ -452,7 +452,7 @@ if (loginForm) {
             
             // Simulate successful login
             alert('Login successful! Redirecting to dashboard...');
-            window.location.href = 'customerdashboard.html';
+            window.location.href = 'customerdashboard.php';
         }
     });
 }
@@ -519,7 +519,7 @@ if (registerForm) {
         console.log('Registration data:', data);
         
         alert('Registration successful! Redirecting to login...');
-        window.location.href = 'login.html';
+        window.location.href = 'login.php';
     });
 }
 
@@ -693,7 +693,7 @@ if (deleteAccountBtn) {
             const finalConfirmation = prompt('Type "DELETE" to confirm account deletion:');
             if (finalConfirmation === 'DELETE') {
                 alert('Your account has been scheduled for deletion. You will be logged out.');
-                window.location.href = 'index.html';
+                window.location.href = 'index.php';
             }
         }
     });

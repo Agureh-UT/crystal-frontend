@@ -1,36 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Crystal Crown Mobile Detailing</title>
-    <meta name="description" content="Manage your bookings, view service history, and access exclusive member benefits.">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-wrapper">
-                <a href="index.html" class="logo-link">
-                    <img src="logo.webp" alt="Crystal Crown Mobile Detailing" class="logo">
-                </a>
-                <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <ul class="nav-menu">
-                    <li><a href="customerdashboard.html" class="nav-link active">Dashboard</a></li>
-                    <li><a href="bookings.html" class="nav-link">Book Service</a></li>
-                    <li><a href="profile.html" class="nav-link">Profile</a></li>
-                    <li><a href="index.html" class="nav-link">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<?php
+$pageTitle = 'Dashboard - Crystal Crown Mobile Detailing';
+$pageDescription = 'Manage your bookings, view service history, and access exclusive member benefits.';
+$activePage = 'dashboard';
+$navType = 'dashboard';
+include 'header.php';
+?>
 
     <section class="dashboard-header">
         <div class="container">
@@ -103,7 +77,7 @@
                     <div class="content-card">
                         <div class="card-header">
                             <h2 class="card-title">Upcoming Appointments</h2>
-                            <a href="bookings.html" class="btn btn-secondary btn-small">Book New Service</a>
+                            <a href="bookings.php" class="btn btn-secondary btn-small">Book New Service</a>
                         </div>
                         <div class="appointments-list">
                             <div class="appointment-item">
@@ -305,7 +279,7 @@
                                 <h2 class="card-title">Quick Actions</h2>
                             </div>
                             <div class="quick-actions">
-                                <a href="bookings.html" class="action-link">
+                                <a href="bookings.php" class="action-link">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
                                         <line x1="16" y1="2" x2="16" y2="6"/>
@@ -314,14 +288,14 @@
                                     </svg>
                                     <span>Book New Service</span>
                                 </a>
-                                <a href="profile.html" class="action-link">
+                                <a href="profile.php" class="action-link">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                                         <circle cx="12" cy="7" r="4"/>
                                     </svg>
                                     <span>Edit Profile</span>
                                 </a>
-                                <a href="contact.html" class="action-link">
+                                <a href="contact.php" class="action-link">
                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
                                     </svg>
@@ -383,47 +357,4 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <img src="logo.webp" alt="Crystal Crown" class="footer-logo">
-                    <p class="footer-text">Premium mobile detailing services bringing luxury to your doorstep.</p>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#services">Services</a></li>
-                        <li><a href="bookings.html">Book Now</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Services</h4>
-                    <ul class="footer-links">
-                        <li><a href="bookings.html">Exterior Detailing</a></li>
-                        <li><a href="bookings.html">Interior Detailing</a></li>
-                        <li><a href="bookings.html">Ceramic Coating</a></li>
-                        <li><a href="bookings.html">Full Detail</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Contact</h4>
-                    <ul class="footer-links">
-                        <li>info@crystalcrown.com</li>
-                        <li>+1 (555) 123-4567</li>
-                        <li>Available 7 Days a Week</li>
-                        <li>8 AM - 8 PM</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Crystal Crown Mobile Detailing. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+<?php include 'footer.php'; ?>

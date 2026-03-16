@@ -1,36 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Your Service - Crystal Crown Mobile Detailing</title>
-    <meta name="description" content="Book your premium mobile car detailing service online. Fast, convenient scheduling.">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-</head>
-<body>
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-wrapper">
-                <a href="index.html" class="logo-link">
-                    <img src="logo.webp" alt="Crystal Crown Mobile Detailing" class="logo">
-                </a>
-                <button class="mobile-menu-toggle" aria-label="Toggle menu">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-                <ul class="nav-menu">
-                    <li><a href="index.html" class="nav-link">Home</a></li>
-                    <li><a href="index.html#services" class="nav-link">Services</a></li>
-                    <li><a href="bookings.html" class="nav-link active">Book Now</a></li>
-                    <li><a href="contact.html" class="nav-link">Contact</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<?php
+$pageTitle = 'Book Your Service - Crystal Crown Mobile Detailing';
+$pageDescription = 'Book your premium mobile car detailing service online. Fast, convenient scheduling.';
+$activePage = 'bookings';
+$navType = 'public';
+include 'header.php';
+?>
 
     <section class="page-header">
         <div class="container">
@@ -294,47 +268,4 @@
         </div>
     </section>
 
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <img src="logo.webp" alt="Crystal Crown" class="footer-logo">
-                    <p class="footer-text">Premium mobile detailing services bringing luxury to your doorstep.</p>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="index.html#services">Services</a></li>
-                        <li><a href="bookings.html">Book Now</a></li>
-                        <li><a href="contact.html">Contact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Services</h4>
-                    <ul class="footer-links">
-                        <li><a href="bookings.html">Exterior Detailing</a></li>
-                        <li><a href="bookings.html">Interior Detailing</a></li>
-                        <li><a href="bookings.html">Ceramic Coating</a></li>
-                        <li><a href="bookings.html">Full Detail</a></li>
-                    </ul>
-                </div>
-                <div class="footer-col">
-                    <h4 class="footer-title">Contact</h4>
-                    <ul class="footer-links">
-                        <li>info@crystalcrown.com</li>
-                        <li>+1 (555) 123-4567</li>
-                        <li>Available 7 Days a Week</li>
-                        <li>8 AM - 8 PM</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Crystal Crown Mobile Detailing. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+<?php include 'footer.php'; ?>
