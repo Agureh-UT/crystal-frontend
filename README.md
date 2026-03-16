@@ -44,6 +44,7 @@ Crystal Crown Mobile Detailing is a premium, fully responsive website for a mobi
 
 ### Core Features
 - ✅ **7 Complete Pages** - Home, Bookings, Contact, Login, Register, Dashboard, Profile
+- ✅ **PHP Template System** - Shared `header.php` and `footer.php` partials with dynamic nav
 - ✅ **Multi-step Booking Form** - 4-step booking process with validation
 - ✅ **User Authentication** - Login and registration with social options
 - ✅ **Customer Dashboard** - Appointment management and service history
@@ -115,6 +116,49 @@ The homepage expects a video file named `hero-video.mp4` in the root directory.
 ---
 
 ## 📄 Page Documentation
+
+### PHP Template System
+
+All pages use shared `header.php` and `footer.php` partials via PHP `include`. Each page sets variables before including `header.php`:
+
+```php
+<?php
+$pageTitle = 'Page Title - Crystal Crown Mobile Detailing';
+$pageDescription = 'Meta description for the page.';
+$activePage = 'home';       // highlights the active nav link
+$navType = 'public';        // which nav menu to render
+include 'header.php';
+?>
+
+<!-- page-specific content here -->
+
+<?php include 'footer.php'; ?>
+```
+
+**`$navType` options:**
+
+| Value | Nav Links | Used On |
+|-------|-----------|---------|
+| `'public'` | Home, Services, Book Now, Contact | index, bookings, contact |
+| `'auth'` | Public links + Login | login, register |
+| `'dashboard'` | Dashboard, Book Service, Profile, Logout | customerdashboard, profile |
+
+**`$activePage` values:** `'home'`, `'bookings'`, `'contact'`, `'login'`, `'dashboard'`, `'profile'`
+
+### header.php - Shared Header Partial
+
+- `<!DOCTYPE html>` declaration and opening `<html>` tag
+- `<head>` with dynamic `<title>` and `<meta description>` from PHP variables
+- Google Fonts (`Cinzel` and `Montserrat`) via `<link>` tags
+- Stylesheet link (`styles.css`)
+- `<nav>` with logo, mobile menu toggle, and dynamic navigation links
+
+### footer.php - Shared Footer Partial
+
+- Footer with logo, quick links, services links, and contact info
+- Dynamic copyright year via `<?php echo date('Y'); ?>`
+- Script tag (`script.js`)
+- Closing `</body>` and `</html>` tags
 
 ### 1. index.php - Homepage
 
@@ -204,7 +248,7 @@ All colors are managed via CSS variables in `styles.css`:
 
 ### Business Information
 
-**Update in `header.php` and `footer.php`:**
+**Update in `footer.php` (contact info) and individual page files (prices, descriptions):**
 - Email: `info@crystalcrown.com`
 - Phone: `+1 (555) 123-4567`
 - Hours: `8 AM - 8 PM`
@@ -213,10 +257,7 @@ All colors are managed via CSS variables in `styles.css`:
 
 ### Logo Replacement
 
-Replace `logo.webp` or update all references:
-```html
-<img src="logo.webp" alt="Crystal Crown">
-```
+Replace `logo.webp` — it is referenced in `header.php` (navbar) and `footer.php` (footer).
 
 ---
 
@@ -314,6 +355,7 @@ php -S localhost:8000
 
 ### Pre-Deployment Checklist
 
+- [ ] Verify PHP is installed on the server
 - [ ] Replace placeholder video
 - [ ] Update business information
 - [ ] Test all forms
@@ -322,12 +364,19 @@ php -S localhost:8000
 - [ ] Optimize images/video
 - [ ] Test multiple browsers
 - [ ] Add favicon
-- [ ] Configure meta tags
+- [ ] Configure meta tags in `header.php`
 - [ ] Set up analytics
 
 ---
 
 ## 🔧 Troubleshooting
+
+### Pages Show Raw PHP Code
+
+**Solutions:**
+- Ensure you are serving via a PHP-capable server (not opening files directly in a browser)
+- Run `php -S localhost:8000` for local development
+- Verify PHP is installed: `php -v`
 
 ### Video Not Playing
 
@@ -353,6 +402,13 @@ php -S localhost:8000
 - Verify class names match
 - Test click event
 - Clear browser cache
+
+### Navbar or Footer Missing
+
+**Solutions:**
+- Verify `header.php` and `footer.php` exist in the same directory as the page
+- Check for PHP syntax errors: `php -l header.php`
+- Ensure each page has `include 'header.php';` and `include 'footer.php';`
 
 ### Styling Issues
 
@@ -418,9 +474,9 @@ php -S localhost:8000
 
 ### SEO Optimization
 
-**Add Meta Tags:**
+Meta tags (`<title>`, `<meta description>`) are already set per page via PHP variables in `header.php`. To add Open Graph tags, edit `header.php`:
+
 ```html
-<meta name="description" content="Premium mobile car detailing...">
 <meta property="og:title" content="Crystal Crown Mobile Detailing">
 <meta property="og:image" content="og-image.jpg">
 ```
@@ -472,6 +528,7 @@ Permission is granted to use, modify, and distribute this software for personal 
 
 **Web Development:**
 - MDN Web Docs: [developer.mozilla.org](https://developer.mozilla.org)
+- PHP Manual: [php.net/manual](https://www.php.net/manual/en/)
 - CSS-Tricks: [css-tricks.com](https://css-tricks.com)
 - JavaScript.info: [javascript.info](https://javascript.info)
 
