@@ -5,6 +5,7 @@ $activePage = 'contact';
 $navType = 'public';
 include 'header.php';
 ?>
+<?php use Core\FH; ?>
 
     <section class="page-header">
         <div class="container">
@@ -71,39 +72,17 @@ include 'header.php';
                         <p class="form-description">Have a question or special request? Fill out the form below and we'll get back to you shortly.</p>
 
                         <div class="contact-form" id="contactForm">
+                            <?= FH::csrfInput() ?>
                             <div class="form-grid">
-                                <div class="form-group">
-                                    <label for="contactName">Full Name</label>
-                                    <input type="text" id="contactName" name="contactName" placeholder="John Doe" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="contactPhone">Phone Number</label>
-                                    <input type="tel" id="contactPhone" name="contactPhone" placeholder="(555) 123-4567" required>
-                                </div>
+                                <?= FH::inputBlock('text', 'Full Name', 'contactName', '', ['class'=>'form-input','placeholder'=>'John Doe','required'=>'required'], ['class'=>'form-group'], []) ?>
+                                <?= FH::inputBlock('tel', 'Phone Number', 'contactPhone', '', ['class'=>'form-input','placeholder'=>'(555) 123-4567','required'=>'required'], ['class'=>'form-group'], []) ?>
                             </div>
 
-                            <div class="form-group">
-                                <label for="contactEmail">Email Address</label>
-                                <input type="email" id="contactEmail" name="contactEmail" placeholder="your@email.com" required>
-                            </div>
+                            <?= FH::inputBlock('email', 'Email Address', 'contactEmail', '', ['class'=>'form-input','placeholder'=>'your@email.com','required'=>'required'], ['class'=>'form-group'], []) ?>
 
-                            <div class="form-group">
-                                <label for="inquiryType">Inquiry Type</label>
-                                <select id="inquiryType" name="inquiryType" required>
-                                    <option value="">Select inquiry type</option>
-                                    <option value="general">General Question</option>
-                                    <option value="quote">Request a Quote</option>
-                                    <option value="booking">Booking Inquiry</option>
-                                    <option value="feedback">Feedback</option>
-                                    <option value="partnership">Partnership Opportunity</option>
-                                    <option value="other">Other</option>
-                                </select>
-                            </div>
+                            <?= FH::selectBlock('Inquiry Type', 'inquiryType', '', ['' => 'Select inquiry type', 'general' => 'General Question', 'quote' => 'Request a Quote', 'booking' => 'Booking Inquiry', 'feedback' => 'Feedback', 'partnership' => 'Partnership Opportunity', 'other' => 'Other'], ['class'=>'form-select','required'=>'required'], ['class'=>'form-group'], []) ?>
 
-                            <div class="form-group">
-                                <label for="contactMessage">Message</label>
-                                <textarea id="contactMessage" name="contactMessage" rows="6" placeholder="Tell us how we can help you..." required></textarea>
-                            </div>
+                            <?= FH::textareaBlock('Message', 'contactMessage', '', ['class'=>'form-textarea','rows'=>'6','placeholder'=>'Tell us how we can help you...','required'=>'required'], ['class'=>'form-group'], []) ?>
 
                             <button type="submit" class="btn btn-primary btn-submit">Send Message</button>
                         </div>

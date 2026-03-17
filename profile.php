@@ -5,6 +5,7 @@ $activePage = 'profile';
 $navType = 'dashboard';
 include 'header.php';
 ?>
+<?php use Core\FH; ?>
 
     <section class="page-header">
         <div class="container">
@@ -85,27 +86,12 @@ include 'header.php';
                             <h2 class="card-title">Personal Information</h2>
                             <div class="profile-form">
                                 <div class="form-grid">
-                                    <div class="form-group">
-                                        <label for="profileFirstName">First Name</label>
-                                        <input type="text" id="profileFirstName" name="firstName" value="John" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="profileLastName">Last Name</label>
-                                        <input type="text" id="profileLastName" name="lastName" value="Doe" required>
-                                    </div>
+                                    <?= FH::inputBlock('text', 'First Name', 'profileFirstName', 'John', ['class'=>'form-input','required'=>'required'], ['class'=>'form-group'], []) ?>
+                                    <?= FH::inputBlock('text', 'Last Name', 'profileLastName', 'Doe', ['class'=>'form-input','required'=>'required'], ['class'=>'form-group'], []) ?>
                                 </div>
-                                <div class="form-group">
-                                    <label for="profileEmail">Email Address</label>
-                                    <input type="email" id="profileEmail" name="email" value="john.doe@email.com" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="profilePhone">Phone Number</label>
-                                    <input type="tel" id="profilePhone" name="phone" value="+1 (555) 123-4567" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="profileBirthday">Birthday (Optional)</label>
-                                    <input type="date" id="profileBirthday" name="birthday" value="1990-05-15">
-                                </div>
+                                <?= FH::inputBlock('email', 'Email Address', 'profileEmail', 'john.doe@email.com', ['class'=>'form-input','required'=>'required'], ['class'=>'form-group'], []) ?>
+                                <?= FH::inputBlock('tel', 'Phone Number', 'profilePhone', '+1 (555) 123-4567', ['class'=>'form-input','required'=>'required'], ['class'=>'form-group'], []) ?>
+                                <?= FH::inputBlock('date', 'Birthday (Optional)', 'profileBirthday', '1990-05-15', ['class'=>'form-input'], ['class'=>'form-group'], []) ?>
                                 <button class="btn btn-primary">Save Changes</button>
                             </div>
                         </div>
@@ -115,42 +101,9 @@ include 'header.php';
                         <div class="content-card">
                             <h2 class="card-title">Change Password</h2>
                             <div class="profile-form">
-                                <div class="form-group">
-                                    <label for="currentPassword">Current Password</label>
-                                    <div class="password-input-wrapper">
-                                        <input type="password" id="currentPassword" name="currentPassword" placeholder="Enter current password" required>
-                                        <button type="button" class="password-toggle" aria-label="Toggle password visibility">
-                                            <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                                <circle cx="12" cy="12" r="3"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="newPassword">New Password</label>
-                                    <div class="password-input-wrapper">
-                                        <input type="password" id="newPassword" name="newPassword" placeholder="Enter new password" required>
-                                        <button type="button" class="password-toggle" aria-label="Toggle password visibility">
-                                            <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                                <circle cx="12" cy="12" r="3"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="confirmNewPassword">Confirm New Password</label>
-                                    <div class="password-input-wrapper">
-                                        <input type="password" id="confirmNewPassword" name="confirmNewPassword" placeholder="Re-enter new password" required>
-                                        <button type="button" class="password-toggle" aria-label="Toggle password visibility">
-                                            <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                                <circle cx="12" cy="12" r="3"/>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
+                                <?= FH::passwordBlock('password', 'Current Password', 'currentPassword', '', ['class'=>'form-input','placeholder'=>'Enter current password','required'=>'required'], ['class'=>'password-toggle','type'=>'button','aria-label'=>'Toggle password visibility'], ['class'=>'password-input-wrapper'], ['class'=>'form-group'], []) ?>
+                                <?= FH::passwordBlock('password', 'New Password', 'newPassword', '', ['class'=>'form-input','placeholder'=>'Enter new password','required'=>'required'], ['class'=>'password-toggle','type'=>'button','aria-label'=>'Toggle password visibility'], ['class'=>'password-input-wrapper'], ['class'=>'form-group'], []) ?>
+                                <?= FH::passwordBlock('password', 'Confirm New Password', 'confirmNewPassword', '', ['class'=>'form-input','placeholder'=>'Re-enter new password','required'=>'required'], ['class'=>'password-toggle','type'=>'button','aria-label'=>'Toggle password visibility'], ['class'=>'password-input-wrapper'], ['class'=>'form-group'], []) ?>
                                 <button class="btn btn-primary">Update Password</button>
                             </div>
                         </div>
@@ -366,22 +319,8 @@ include 'header.php';
                         <div class="content-card">
                             <h2 class="card-title">Default Preferences</h2>
                             <div class="profile-form">
-                                <div class="form-group">
-                                    <label for="defaultLocation">Default Service Location</label>
-                                    <select id="defaultLocation">
-                                        <option value="home">Home</option>
-                                        <option value="work">Work</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="preferredTime">Preferred Time</label>
-                                    <select id="preferredTime">
-                                        <option value="morning">Morning (8AM - 12PM)</option>
-                                        <option value="afternoon">Afternoon (12PM - 5PM)</option>
-                                        <option value="evening">Evening (5PM - 8PM)</option>
-                                    </select>
-                                </div>
+                                <?= FH::selectBlock('Default Service Location', 'defaultLocation', 'home', ['home'=>'Home','work'=>'Work','other'=>'Other'], ['class'=>'form-select'], ['class'=>'form-group'], []) ?>
+                                <?= FH::selectBlock('Preferred Time', 'preferredTime', 'morning', ['morning'=>'Morning (8AM - 12PM)','afternoon'=>'Afternoon (12PM - 5PM)','evening'=>'Evening (5PM - 8PM)'], ['class'=>'form-select'], ['class'=>'form-group'], []) ?>
                                 <button class="btn btn-primary">Save Preferences</button>
                             </div>
                         </div>

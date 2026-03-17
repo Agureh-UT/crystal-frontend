@@ -39,6 +39,40 @@
         </div>
     </footer>
 
+    <!-- Custom Alert -->
+    <div class="custom-alert" id="customAlert">
+        <div class="alert-content">
+            <div class="alert-header" id="alertHeader">
+                <span id="alertIcon"></span>
+                <span id="alertTitle"></span>
+            </div>
+            <div class="alert-body">
+                <p id="alertMessage"></p>
+            </div>
+            <div class="alert-footer">
+                <button class="btn btn-primary" onclick="closeAlert(this)">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Confirm -->
+    <div class="custom-alert" id="customConfirm">
+        <div class="alert-content">
+            <div class="alert-header status-warning">
+                <span>&#x26A0;&#xFE0F;</span>
+                <span>Confirm Action</span>
+            </div>
+            <div class="alert-body">
+                <p id="confirmMessage"></p>
+            </div>
+            <div class="alert-footer">
+                <button class="btn btn-secondary" onclick="closeConfirm(false)">Cancel</button>
+                <button class="btn btn-danger" onclick="closeConfirm(true)">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="alerts.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

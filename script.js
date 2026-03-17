@@ -7,13 +7,13 @@ let lastScroll = 0;
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
+
     if (currentScroll > 80) {
         navbar.classList.add('scrolled');
     } else {
         navbar.classList.remove('scrolled');
     }
-    
+
     lastScroll = currentScroll;
 });
 
@@ -30,7 +30,7 @@ if (mobileMenuToggle) {
         navMenu.classList.toggle('active');
         document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
     });
-    
+
     // Close menu when clicking nav links
     const navLinks = document.querySelectorAll('.nav-link');
     navLinks.forEach(link => {
@@ -50,7 +50,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
         if (href === '#') return;
-        
+
         e.preventDefault();
         const target = document.querySelector(href);
         if (target) {
@@ -128,10 +128,10 @@ function showStep(step) {
             formStep.classList.remove('active');
         }
     });
-    
+
     updateProgressBar(step);
     currentStep = step;
-    
+
     // Scroll to top of form
     const formCard = document.querySelector('.form-card');
     if (formCard) {
@@ -140,44 +140,41 @@ function showStep(step) {
 }
 
 function validateStep(step) {
-    const currentFormStep = document.querySelector(`.form-step[data-step="${step}"]`);
+    const currentFormStep = document.querySelector('.form-step[data-step="' + step + '"]');
     if (!currentFormStep) return true;
-    
+
     const requiredInputs = currentFormStep.querySelectorAll('[required]');
     let isValid = true;
-    
+
     requiredInputs.forEach(input => {
-        if (input.type === 'radio') {
-            const radioGroup = currentFormStep.querySelectorAll(`[name="${input.name}"]`);
-            const isChecked = Array.from(radioGroup).some(radio => radio.checked);
-            if (!isChecked) {
-                isValid = false;
-            }
-        } else if (!input.value.trim()) {
+        if (!input.value.trim()) {
             isValid = false;
-            input.style.borderColor = '#ef4444';
-            setTimeout(() => {
-                input.style.borderColor = '';
+            input.classList.add('is-invalid');
+            setTimeout(function() {
+                input.classList.remove('is-invalid');
             }, 2000);
         }
     });
-    
+
     if (!isValid) {
-        alert('Please fill in all required fields before continuing.');
+        showAlert('warning', 'Validation Error', 'Please fill in all required fields before continuing.');
     }
-    
+
     return isValid;
 }
 
 function updateSummary() {
     // Update service
-    const serviceRadio = document.querySelector('input[name="service"]:checked');
-    if (serviceRadio) {
-        bookingData.service = serviceRadio.value;
-        document.getElementById('summaryService').textContent = serviceNames[serviceRadio.value];
-        document.getElementById('summaryPrice').textContent = `$${servicePrices[serviceRadio.value]}`;
+    const serviceSelect = document.getElementById('service');
+    const serviceValue = serviceSelect ? serviceSelect.value : '';
+    if (serviceValue) {
+        bookingData.service = serviceValue;
+        var summaryServiceEl = document.getElementById('summaryService');
+        var summaryPriceEl = document.getElementById('summaryPrice');
+        if (summaryServiceEl) summaryServiceEl.textContent = serviceNames[serviceValue];
+        if (summaryPriceEl) summaryPriceEl.textContent = '$' + servicePrices[serviceValue];
     }
-    
+
     // Update vehicle
     const make = document.getElementById('vehicleMake');
     const model = document.getElementById('vehicleModel');
@@ -186,37 +183,41 @@ function updateSummary() {
         bookingData.vehicleMake = make.value;
         bookingData.vehicleModel = model.value;
         bookingData.vehicleYear = year.value;
-        document.getElementById('summaryVehicle').textContent = `${year.value} ${make.value} ${model.value}`;
+        var summaryVehicleEl = document.getElementById('summaryVehicle');
+        if (summaryVehicleEl) summaryVehicleEl.textContent = year.value + ' ' + make.value + ' ' + model.value;
     }
-    
+
     // Update date
     const date = document.getElementById('appointmentDate');
     if (date && date.value) {
         bookingData.appointmentDate = date.value;
         const dateObj = new Date(date.value);
-        const formattedDate = dateObj.toLocaleDateString('en-US', { 
-            weekday: 'short', 
-            year: 'numeric', 
-            month: 'short', 
-            day: 'numeric' 
+        const formattedDate = dateObj.toLocaleDateString('en-US', {
+            weekday: 'short',
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
         });
-        document.getElementById('summaryDate').textContent = formattedDate;
+        var summaryDateEl = document.getElementById('summaryDate');
+        if (summaryDateEl) summaryDateEl.textContent = formattedDate;
     }
-    
+
     // Update time
     const time = document.getElementById('appointmentTime');
     if (time && time.value) {
         bookingData.appointmentTime = time.value;
-        document.getElementById('summaryTime').textContent = time.options[time.selectedIndex].text;
+        var summaryTimeEl = document.getElementById('summaryTime');
+        if (summaryTimeEl) summaryTimeEl.textContent = time.options[time.selectedIndex].text;
     }
-    
+
     // Update location
     const address = document.getElementById('serviceAddress');
     const city = document.getElementById('city');
     if (address && city && address.value && city.value) {
         bookingData.serviceAddress = address.value;
         bookingData.city = city.value;
-        document.getElementById('summaryLocation').textContent = `${city.value}`;
+        var summaryLocationEl = document.getElementById('summaryLocation');
+        if (summaryLocationEl) summaryLocationEl.textContent = city.value;
     }
 }
 
@@ -248,7 +249,7 @@ const submitButton = document.querySelector('.btn-submit');
 if (submitButton) {
     submitButton.addEventListener('click', (e) => {
         e.preventDefault();
-        
+
         if (validateStep(currentStep)) {
             // Collect all form data
             const formInputs = document.querySelectorAll('#bookingForm input, #bookingForm select, #bookingForm textarea');
@@ -257,15 +258,14 @@ if (submitButton) {
                     bookingData[input.name] = input.value;
                 }
             });
-            
+
             // In a real application, this would submit to a server
             console.log('Booking submitted:', bookingData);
-            
+
             // Show success message
-            alert('Thank you for your booking! We will contact you shortly to confirm your appointment.');
-            
-            // Reset form
-            window.location.href = 'index.php';
+            showAlert('success', 'Booking Submitted', 'Thank you for your booking! We will contact you shortly to confirm your appointment.', function() {
+                window.location.href = 'index.php';
+            });
         }
     });
 }
@@ -275,6 +275,12 @@ const appointmentDate = document.getElementById('appointmentDate');
 if (appointmentDate) {
     const today = new Date().toISOString().split('T')[0];
     appointmentDate.setAttribute('min', today);
+}
+
+// Service select change listener
+const serviceSelect = document.getElementById('service');
+if (serviceSelect) {
+    serviceSelect.addEventListener('change', updateSummary);
 }
 
 // ========================================
@@ -288,32 +294,32 @@ const sendAnotherButton = document.getElementById('sendAnother');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         // Validate form
         const requiredFields = contactForm.querySelectorAll('[required]');
         let isValid = true;
-        
+
         requiredFields.forEach(field => {
             if (!field.value.trim()) {
                 isValid = false;
-                field.style.borderColor = '#ef4444';
-                setTimeout(() => {
-                    field.style.borderColor = '';
+                field.classList.add('is-invalid');
+                setTimeout(function() {
+                    field.classList.remove('is-invalid');
                 }, 2000);
             }
         });
-        
+
         if (isValid) {
             // In a real application, this would submit to a server
             const formData = new FormData(contactForm);
             const data = Object.fromEntries(formData);
             console.log('Contact form submitted:', data);
-            
+
             // Show success message
             contactForm.style.display = 'none';
             formSuccess.classList.add('active');
         } else {
-            alert('Please fill in all required fields.');
+            showAlert('warning', 'Validation Error', 'Please fill in all required fields.');
         }
     });
 }
@@ -336,12 +342,12 @@ faqQuestions.forEach(question => {
     question.addEventListener('click', () => {
         const faqItem = question.parentElement;
         const isActive = faqItem.classList.contains('active');
-        
+
         // Close all FAQ items
         document.querySelectorAll('.faq-item').forEach(item => {
             item.classList.remove('active');
         });
-        
+
         // Toggle current item
         if (!isActive) {
             faqItem.classList.add('active');
@@ -359,7 +365,7 @@ formInputs.forEach(input => {
     input.addEventListener('focus', function() {
         this.parentElement.style.transform = 'translateY(-2px)';
     });
-    
+
     input.addEventListener('blur', function() {
         this.parentElement.style.transform = 'translateY(0)';
     });
@@ -375,7 +381,7 @@ serviceCards.forEach(card => {
     card.addEventListener('mouseenter', function() {
         this.style.zIndex = '10';
     });
-    
+
     card.addEventListener('mouseleave', function() {
         this.style.zIndex = '1';
     });
@@ -431,7 +437,7 @@ passwordToggles.forEach(toggle => {
         const input = this.previousElementSibling;
         const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
         input.setAttribute('type', type);
-        
+
         // Toggle eye icon
         this.classList.toggle('active');
     });
@@ -442,17 +448,18 @@ const loginForm = document.querySelector('#loginForm');
 if (loginForm) {
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const email = document.getElementById('loginEmail').value;
         const password = document.getElementById('loginPassword').value;
-        
+
         if (email && password) {
             // In a real application, this would authenticate with a server
             console.log('Login attempt:', { email });
-            
+
             // Simulate successful login
-            alert('Login successful! Redirecting to dashboard...');
-            window.location.href = 'customerdashboard.php';
+            showAlert('success', 'Login Successful', 'Redirecting to dashboard...', function() {
+                window.location.href = 'customerdashboard.php';
+            });
         }
     });
 }
@@ -464,19 +471,19 @@ if (registerForm) {
     const registerPassword = document.getElementById('registerPassword');
     const strengthFill = document.getElementById('strengthFill');
     const strengthText = document.getElementById('strengthText');
-    
+
     if (registerPassword && strengthFill && strengthText) {
         registerPassword.addEventListener('input', function() {
             const password = this.value;
             let strength = 0;
-            
+
             if (password.length >= 8) strength += 25;
             if (password.match(/[a-z]/)) strength += 25;
             if (password.match(/[A-Z]/)) strength += 25;
             if (password.match(/[0-9]/)) strength += 25;
-            
+
             strengthFill.style.width = strength + '%';
-            
+
             if (strength === 0) {
                 strengthText.textContent = 'Password strength';
                 strengthFill.style.background = '#ef4444';
@@ -495,31 +502,32 @@ if (registerForm) {
             }
         });
     }
-    
+
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        
+
         const password = document.getElementById('registerPassword').value;
         const confirmPassword = document.getElementById('confirmPassword').value;
         const termsCheckbox = document.querySelector('input[name="terms"]');
-        
+
         if (password !== confirmPassword) {
-            alert('Passwords do not match!');
+            showAlert('error', 'Validation Error', 'Passwords do not match!');
             return;
         }
-        
+
         if (!termsCheckbox.checked) {
-            alert('Please accept the terms and conditions');
+            showAlert('warning', 'Terms Required', 'Please accept the terms and conditions.');
             return;
         }
-        
+
         // In a real application, this would register with a server
         const formData = new FormData(registerForm);
         const data = Object.fromEntries(formData);
         console.log('Registration data:', data);
-        
-        alert('Registration successful! Redirecting to login...');
-        window.location.href = 'login.php';
+
+        showAlert('success', 'Registration Successful', 'Your account has been created. Redirecting to login...', function() {
+            window.location.href = 'login.php';
+        });
     });
 }
 
@@ -533,16 +541,16 @@ const tabContents = document.querySelectorAll('.tab-content');
 menuItems.forEach(item => {
     item.addEventListener('click', function() {
         const tabId = this.getAttribute('data-tab');
-        
+
         // Remove active class from all menu items
         menuItems.forEach(menuItem => menuItem.classList.remove('active'));
-        
+
         // Add active class to clicked menu item
         this.classList.add('active');
-        
+
         // Hide all tab contents
         tabContents.forEach(content => content.classList.remove('active'));
-        
+
         // Show selected tab content
         const selectedTab = document.getElementById(tabId);
         if (selectedTab) {
@@ -555,31 +563,31 @@ menuItems.forEach(item => {
 const profileForms = document.querySelectorAll('.profile-form');
 
 profileForms.forEach(form => {
-    const submitButton = form.querySelector('button[type="submit"], .btn-primary');
-    if (submitButton) {
-        submitButton.addEventListener('click', (e) => {
+    const formSubmitBtn = form.querySelector('button[type="submit"], .btn-primary');
+    if (formSubmitBtn) {
+        formSubmitBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            
+
             // Validate form
             const inputs = form.querySelectorAll('input[required]');
             let isValid = true;
-            
+
             inputs.forEach(input => {
                 if (!input.value.trim()) {
                     isValid = false;
-                    input.style.borderColor = '#ef4444';
-                    setTimeout(() => {
-                        input.style.borderColor = '';
+                    input.classList.add('is-invalid');
+                    setTimeout(function() {
+                        input.classList.remove('is-invalid');
                     }, 2000);
                 }
             });
-            
+
             if (isValid) {
                 // In a real application, this would update the server
                 console.log('Form submitted successfully');
-                alert('Changes saved successfully!');
+                showAlert('success', 'Saved', 'Changes saved successfully!');
             } else {
-                alert('Please fill in all required fields');
+                showAlert('warning', 'Validation Error', 'Please fill in all required fields.');
             }
         });
     }
@@ -596,14 +604,16 @@ cancelButtons.forEach(button => {
     button.addEventListener('click', function() {
         const appointmentItem = this.closest('.appointment-item');
         const appointmentTitle = appointmentItem.querySelector('.appointment-title').textContent;
-        
-        if (confirm(`Are you sure you want to cancel "${appointmentTitle}"?`)) {
-            appointmentItem.style.opacity = '0';
-            appointmentItem.style.transform = 'translateX(-20px)';
-            setTimeout(() => {
-                appointmentItem.remove();
-            }, 300);
-        }
+
+        showConfirm('Are you sure you want to cancel "' + appointmentTitle + '"?', function(result) {
+            if (result) {
+                appointmentItem.style.opacity = '0';
+                appointmentItem.style.transform = 'translateX(-20px)';
+                setTimeout(function() {
+                    appointmentItem.remove();
+                }, 300);
+            }
+        });
     });
 });
 
@@ -614,9 +624,8 @@ rescheduleButtons.forEach(button => {
     button.addEventListener('click', function() {
         const appointmentItem = this.closest('.appointment-item');
         const appointmentTitle = appointmentItem.querySelector('.appointment-title').textContent;
-        
-        alert(`Rescheduling "${appointmentTitle}". You would be redirected to the booking page.`);
-        // In a real application, this would redirect to booking page with pre-filled data
+
+        showAlert('info', 'Reschedule', 'Rescheduling "' + appointmentTitle + '". You would be redirected to the booking page.');
     });
 });
 
@@ -627,11 +636,11 @@ toggleSwitches.forEach(toggle => {
     toggle.addEventListener('change', function() {
         const preferenceItem = this.closest('.preference-item, .security-option');
         const preferenceName = preferenceItem.querySelector('h4').textContent;
-        
+
         if (this.checked) {
-            console.log(`Enabled: ${preferenceName}`);
+            console.log('Enabled: ' + preferenceName);
         } else {
-            console.log(`Disabled: ${preferenceName}`);
+            console.log('Disabled: ' + preferenceName);
         }
     });
 });
@@ -640,7 +649,7 @@ toggleSwitches.forEach(toggle => {
 const addVehicleBtn = document.getElementById('addVehicleBtn');
 if (addVehicleBtn) {
     addVehicleBtn.addEventListener('click', function() {
-        alert('Add vehicle form would open here. This would allow you to add a new vehicle to your profile.');
+        showAlert('info', 'Add Vehicle', 'Add vehicle form would open here. This would allow you to add a new vehicle to your profile.');
     });
 }
 
@@ -651,14 +660,16 @@ deleteVehicleButtons.forEach(button => {
     button.addEventListener('click', function() {
         const vehicleCard = this.closest('.vehicle-card');
         const vehicleName = vehicleCard.querySelector('h3').textContent;
-        
-        if (confirm(`Are you sure you want to remove "${vehicleName}" from your vehicles?`)) {
-            vehicleCard.style.opacity = '0';
-            vehicleCard.style.transform = 'scale(0.9)';
-            setTimeout(() => {
-                vehicleCard.remove();
-            }, 300);
-        }
+
+        showConfirm('Are you sure you want to remove "' + vehicleName + '" from your vehicles?', function(result) {
+            if (result) {
+                vehicleCard.style.opacity = '0';
+                vehicleCard.style.transform = 'scale(0.9)';
+                setTimeout(function() {
+                    vehicleCard.remove();
+                }, 300);
+            }
+        });
     });
 });
 
@@ -668,7 +679,7 @@ const socialLoginButtons = document.querySelectorAll('.btn-social');
 socialLoginButtons.forEach(button => {
     button.addEventListener('click', function() {
         const provider = this.textContent.trim();
-        alert(`${provider} authentication would be handled here. In a real application, this would redirect to the ${provider} OAuth flow.`);
+        showAlert('info', provider + ' Login', provider + ' authentication would be handled here. In a real application, this would redirect to the ' + provider + ' OAuth flow.');
     });
 });
 
@@ -677,10 +688,7 @@ const forgotPasswordLink = document.querySelector('.forgot-password');
 if (forgotPasswordLink) {
     forgotPasswordLink.addEventListener('click', function(e) {
         e.preventDefault();
-        const email = prompt('Enter your email address to reset your password:');
-        if (email) {
-            alert(`Password reset link has been sent to ${email}`);
-        }
+        showAlert('info', 'Password Reset', 'Please check your email for password reset instructions.');
     });
 }
 
@@ -688,13 +696,16 @@ if (forgotPasswordLink) {
 const deleteAccountBtn = document.querySelector('.btn-danger');
 if (deleteAccountBtn) {
     deleteAccountBtn.addEventListener('click', function() {
-        const confirmation = confirm('Are you sure you want to delete your account? This action cannot be undone.');
-        if (confirmation) {
-            const finalConfirmation = prompt('Type "DELETE" to confirm account deletion:');
-            if (finalConfirmation === 'DELETE') {
-                alert('Your account has been scheduled for deletion. You will be logged out.');
-                window.location.href = 'index.php';
+        showConfirm('Are you sure you want to delete your account? This action cannot be undone.', function(result) {
+            if (result) {
+                showConfirm('This will permanently delete all your data. Click Confirm to proceed.', function(finalResult) {
+                    if (finalResult) {
+                        showAlert('warning', 'Account Deleted', 'Your account has been scheduled for deletion. You will be logged out.', function() {
+                            window.location.href = 'index.php';
+                        });
+                    }
+                });
             }
-        }
+        });
     });
 }

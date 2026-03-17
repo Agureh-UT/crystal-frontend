@@ -5,6 +5,7 @@ $activePage = 'login';
 $navType = 'auth';
 include 'header.php';
 ?>
+<?php use Core\FH; ?>
 
     <section class="auth-section">
         <div class="container">
@@ -17,23 +18,11 @@ include 'header.php';
 
                     <div class="auth-card">
                         <div class="login-form" id="loginForm">
-                            <div class="form-group">
-                                <label for="loginEmail">Email Address</label>
-                                <input type="email" id="loginEmail" name="email" placeholder="your@email.com" required>
-                            </div>
+                            <?= FH::csrfInput() ?>
 
-                            <div class="form-group">
-                                <label for="loginPassword">Password</label>
-                                <div class="password-input-wrapper">
-                                    <input type="password" id="loginPassword" name="password" placeholder="Enter your password" required>
-                                    <button type="button" class="password-toggle" aria-label="Toggle password visibility">
-                                        <svg class="eye-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-                                            <circle cx="12" cy="12" r="3"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
+                            <?= FH::inputBlock('email', 'Email Address', 'loginEmail', '', ['class'=>'form-input','placeholder'=>'your@email.com','required'=>'required'], ['class'=>'form-group'], []) ?>
+
+                            <?= FH::passwordBlock('password', 'Password', 'loginPassword', '', ['class'=>'form-input','placeholder'=>'Enter your password','required'=>'required'], ['class'=>'password-toggle','type'=>'button','aria-label'=>'Toggle password visibility'], ['class'=>'password-input-wrapper'], ['class'=>'form-group'], []) ?>
 
                             <div class="form-options">
                                 <label class="checkbox-label">
